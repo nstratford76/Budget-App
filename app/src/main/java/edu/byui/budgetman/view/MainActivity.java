@@ -1,8 +1,10 @@
-package edu.byui.budgetman;
+package edu.byui.budgetman.view;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+
+import edu.byui.budgetman.R;
 
 public class MainActivity extends AppCompatActivity {
 
