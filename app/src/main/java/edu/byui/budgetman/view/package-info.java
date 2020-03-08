@@ -1,5 +1,5 @@
 /**
- * Here we should have our control classes which provide core functionality
- * and provide a connection between view and model classes
- * */
+ * Here we should have our Activities classes are in charge of drawing the UI
+ * but communicate with control classes for core functionality implementation
+ */
 package edu.byui.budgetman.view;
