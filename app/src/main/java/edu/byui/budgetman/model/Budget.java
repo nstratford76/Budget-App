@@ -5,15 +5,27 @@ import java.util.ArrayList;
 
 public class Budget {
 
-    private BigDecimal income;
+    // only getter methods provide for this variables since those shouldn't be updated by anything in the program
+    private final int SQL_BUDGET_ID;
     private int month;
+
+    private BigDecimal income;
     private ArrayList<Category> categories;
 
 
-    public Budget(BigDecimal income, int month, ArrayList<Category> categories) {
-        this.income = income;
+    public Budget(int budgetid, BigDecimal income, int month, ArrayList<Category> categories) {
+        SQL_BUDGET_ID = budgetid;
         this.month = month;
+        this.income = income;
         this.categories = categories;
+    }
+
+    public int getSQL_BUDGET_ID() {
+        return SQL_BUDGET_ID;
+    }
+
+    public int getMonth() {
+        return month;
     }
 
 
@@ -24,15 +36,6 @@ public class Budget {
     public void setIncome(BigDecimal income) {
         this.income = income;
     }
-
-    public int getMonth() {
-        return month;
-    }
-
-    public void setMonth(int month) {
-        this.month = month;
-    }
-
 
     public ArrayList<Category> getCategories() {
         return categories;
