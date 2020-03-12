@@ -1,12 +1,13 @@
-package edu.byui.budgetman;
+package edu.byui.budgetman.view;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 import android.widget.TextView;
 
-import java.util.ArrayList;
 import java.util.HashMap;
+
+import edu.byui.budgetman.R;
 
 public class CategoryView extends AppCompatActivity {
 
