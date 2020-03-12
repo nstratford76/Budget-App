@@ -15,9 +15,10 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         /*
-        Intent intet = new Intent(this, CategoryView.class);
-        startActivity(intet);
+        Intent intentForCategoryView = new Intent(this, CategoryView.class);
+        startActivity(intentForCategoryView);
         */
+
 
     }
 
