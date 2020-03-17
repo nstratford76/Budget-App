@@ -7,7 +7,7 @@ public class Budget {
 
     // only getter methods provide for this variables since those shouldn't be updated by anything in the program
     private final int SQL_BUDGET_ID;
-    private int month;
+    private final int month;
 
     private BigDecimal income;
     private ArrayList<Category> categories;
