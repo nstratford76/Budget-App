@@ -3,11 +3,16 @@ package edu.byui.budgetman.view;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.view.View;
 import android.widget.TextView;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import edu.byui.budgetman.R;
+import edu.byui.budgetman.model.Category;
+
+import edu.byui.budgetman.model.Transaction;
 
 public class CategoryView extends AppCompatActivity {
 
@@ -15,10 +20,9 @@ public class CategoryView extends AppCompatActivity {
     TextView input2;
     String category;
     String amountText;
+    Category cat;
 
     // This Map will keep track of the categories and pair them up
-
-    HashMap<Float,String> hm= new HashMap<Float,String>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,7 +30,10 @@ public class CategoryView extends AppCompatActivity {
         setContentView(R.layout.activity_category_view);
     }
 
-    public void getCategory() {
+    public void getCategory(View view) {
+
+
+        ArrayList<Transaction> transactions = new ArrayList<Transaction>();
 
         input = (TextView) findViewById(R.id.editText);
         category = input.getText().toString();
@@ -35,7 +42,9 @@ public class CategoryView extends AppCompatActivity {
         amountText = input.getText().toString();
 
         Float amount = Float.parseFloat(amountText);
-        hm.put(amount, category);
+        Transaction transaction = new Transaction(amount, category);
+        transactions.add(transaction);
+        cat.setTransactions(transactions);
         input.setText("");
         input2.setText("");
     }
