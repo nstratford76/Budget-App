@@ -1,6 +1,7 @@
 package edu.byui.budgetman.model;
 
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -16,7 +17,7 @@ import java.util.Calendar;
  */
 public class ModelAPI extends SQLiteOpenHelper {
 
-    public static Budget uniqueBudget;
+    private static Budget uniqueBudget;
 
 
     public ModelAPI(Context context) {
@@ -67,16 +68,40 @@ public class ModelAPI extends SQLiteOpenHelper {
             res.close();
             uniqueBudget = new Budget(Integer.parseInt(currentMonthID),
                     new BigDecimal("0"), month, new ArrayList<Category>());
+            insertBudget(db);
 
-            // TODO store it in the DB
+        } else {
+            res.moveToFirst();
+            String income = res.getString(res.getColumnIndex("income"));
+            uniqueBudget = new Budget(Integer.parseInt(currentMonthID),
+                    new BigDecimal(income), month, new ArrayList<Category>());
 
+            fillBudgetObjecData(db);
         }
 
         return uniqueBudget;
     }
 
+    private boolean fillBudgetObjecData(SQLiteDatabase db) {
 
-    public void saveBudgetChanges() {
+        // TODO fill categories and transactions
+
+        return true;
+    }
+
+    private boolean insertBudget(SQLiteDatabase db) {
+
+        ContentValues values = new ContentValues();
+        values.put("id", uniqueBudget.getSQL_BUDGET_ID());
+        values.put("month", uniqueBudget.getMonth());
+        values.put("income", uniqueBudget.getIncome().toString());
+        db.insert("budget", null, values);
+
+        return true;
+    }
+
+
+    public void saveAppBudgetChanges() {
 
 
     }
