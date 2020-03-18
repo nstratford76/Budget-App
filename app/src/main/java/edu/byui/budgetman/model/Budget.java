@@ -1,7 +1,7 @@
 package edu.byui.budgetman.model;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
+import java.util.List;
 
 public class Budget {
 
@@ -10,10 +10,10 @@ public class Budget {
     private final int month;
 
     private BigDecimal income;
-    private ArrayList<Category> categories;
+    private List<Category> categories;
 
 
-    public Budget(int budgetid, BigDecimal income, int month, ArrayList<Category> categories) {
+    public Budget(int budgetid, BigDecimal income, int month, List<Category> categories) {
         SQL_BUDGET_ID = budgetid;
         this.month = month;
         this.income = income;
@@ -37,11 +37,11 @@ public class Budget {
         this.income = income;
     }
 
-    public ArrayList<Category> getCategories() {
+    public List<Category> getCategories() {
         return categories;
     }
 
-    public void setCategories(ArrayList<Category> categories) {
+    public void setCategories(List<Category> categories) {
         this.categories = categories;
     }
 }

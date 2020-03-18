@@ -1,18 +1,27 @@
 package edu.byui.budgetman.model;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
+import java.util.List;
 
 public class Category {
 
+    private int sqlId;
     private String name;
     private BigDecimal budgetedAmount;
-    private ArrayList<Transaction> transactions;
+    private List<Transaction> transactions;
 
-    public Category(String name, BigDecimal budgetedAmount, ArrayList<Transaction> transactions) {
+    public Category(String name, BigDecimal budgetedAmount, List<Transaction> transactions) {
         this.name = name;
         this.budgetedAmount = budgetedAmount;
         this.transactions = transactions;
+    }
+
+    public int getSqlId() {
+        return sqlId;
+    }
+
+    public void setSqlId(int sqlId){
+        this.sqlId = sqlId;
     }
 
     public String getName() {
@@ -31,11 +40,11 @@ public class Category {
         this.budgetedAmount = budgetedAmount;
     }
 
-    public ArrayList<Transaction> getTransactions() {
+    public List<Transaction> getTransactions() {
         return transactions;
     }
 
-    public void setTransactions(ArrayList<Transaction> transactions) {
+    public void setTransactions(List<Transaction> transactions) {
         this.transactions = transactions;
     }
 }
