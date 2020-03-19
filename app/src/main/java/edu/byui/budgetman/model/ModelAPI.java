@@ -1,6 +1,5 @@
 package edu.byui.budgetman.model;
 
-
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
@@ -39,7 +38,7 @@ public class ModelAPI extends SQLiteOpenHelper {
         );
         db.execSQL(
                 "create table if not exists category_transaction (id integer primary key, category integer, " +
-                        "date text, transaction_amount text, description text)"
+                        "date text, transaction_amount text, description text, budget integer)"
         );
     }
 
@@ -63,7 +62,7 @@ public class ModelAPI extends SQLiteOpenHelper {
         Calendar cal = Calendar.getInstance();
         int month = cal.get(Calendar.MONTH);
         int year = cal.get(Calendar.YEAR);
-        String currentMonthID = "" + year + "" + month;
+        String currentMonthID = "" + year + "" + String.format("%02d", month);
 
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor res = db.rawQuery("select * from budget where id=" + currentMonthID, null);
@@ -97,10 +96,12 @@ public class ModelAPI extends SQLiteOpenHelper {
 
         }
 
+        db.close();
+
         return uniqueBudget;
     }
 
-    private boolean fillTransactionsData(SQLiteDatabase db) throws ParseException {
+    private static boolean fillTransactionsData(SQLiteDatabase db) throws ParseException {
 
         for (Category currentCategory : uniqueBudget.getCategories()) {
 
@@ -169,7 +170,7 @@ public class ModelAPI extends SQLiteOpenHelper {
         return true;
     }
 
-    private boolean insertBudget(SQLiteDatabase db) {
+    private static boolean insertBudget(SQLiteDatabase db) {
 
         ContentValues values = new ContentValues();
         values.put("id", uniqueBudget.getSQL_BUDGET_ID());
@@ -182,7 +183,77 @@ public class ModelAPI extends SQLiteOpenHelper {
 
     public void saveAppBudgetChanges() {
 
-        // TODO write to DB
+        // Delete budget with current id
 
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.execSQL("delete from budget where id=" + uniqueBudget.getSQL_BUDGET_ID());
+
+        insertBudget(db);
+
+        insertCategories(db);
+        insertTransactions(db);
+
+        db.close();
+    }
+
+    private static void insertTransactions(SQLiteDatabase db) {
+
+        db.execSQL("delete from category_transaction where budget=" + uniqueBudget.getSQL_BUDGET_ID());
+
+        for (Category category : uniqueBudget.getCategories()) {
+
+
+            if (category.getTransactions().size() > 0) {
+
+                List<Transaction> transactions = category.getTransactions();
+
+
+                for (int i = 0; i < transactions.size(); i++) {
+
+
+                    ContentValues values = new ContentValues();
+                    // up to 100 transactions per category
+                    values.put("id", "" + category.getSqlId() + String.format("%02d", i));
+                    values.put("category", category.getSqlId());
+                    values.put("date", Transaction.TRANSACTION_DATE_FORMAT.format(transactions.get(i).getDate()));
+                    values.put("transaction_amount", transactions.get(i).getAmount().toString());
+                    values.put("description", transactions.get(i).getDescription());
+                    values.put("budget", uniqueBudget.getSQL_BUDGET_ID());
+
+                    db.insert("category_transaction", null, values);
+
+                }
+
+
+            }
+
+        }
+    }
+
+    private static void insertCategories(SQLiteDatabase db) {
+
+        int budget_id = uniqueBudget.getSQL_BUDGET_ID();
+
+        db.execSQL("delete from budget_category where budget=" + budget_id);
+
+        List<Category> categories = uniqueBudget.getCategories();
+
+
+        for (int i = 0; i < categories.size(); i++) {
+
+            // There is a limit of 100 categories per budget ... implement that restriction on the categories activity
+            int categorySQLid = Integer.parseInt("" + budget_id + String.format("%02d", i));
+
+            categories.get(i).setSqlId(categorySQLid);
+
+            ContentValues values = new ContentValues();
+            values.put("id", categorySQLid);
+            values.put("budget", budget_id);
+            values.put("name", categories.get(i).getName());
+            values.put("budgeted_amount", categories.get(i).getBudgetedAmount().toString());
+
+            db.insert("budget_category", null, values);
+
+        }
     }
 }
