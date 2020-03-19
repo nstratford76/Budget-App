@@ -6,6 +6,7 @@ import android.os.Bundle;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.HashSet;
 
 import edu.byui.budgetman.R;
 import edu.byui.budgetman.control.BudgetControl;
@@ -34,7 +35,7 @@ public class MainActivity extends AppCompatActivity {
         Budget budget =
                 BudgetControl.getCurrentMonthBudget();
 
-        budget.setCategories(new ArrayList<Category>());
+        budget.setCategories(new HashSet<Category>());
 
         budget.setIncome(new BigDecimal("5300.50"));
 

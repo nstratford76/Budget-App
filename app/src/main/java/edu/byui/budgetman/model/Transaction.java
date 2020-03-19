@@ -10,7 +10,7 @@ import java.util.Locale;
 public class Transaction {
 
 
-    public static final DateFormat TRANSACTION_DATE_FORMAT = new SimpleDateFormat("yyyy-MM-dd", Locale.US);
+    public static final DateFormat TRANSACTION_DATE_FORMAT = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.US);
 
     // Only getter method will be provided for this since it will always default to current date
     // from the constructor

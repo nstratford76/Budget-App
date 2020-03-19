@@ -12,7 +12,9 @@ import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 /**
  * A basic, possibly not efficient model api for our application
@@ -24,7 +26,7 @@ public class ModelAPI extends SQLiteOpenHelper {
 
 
     public ModelAPI(Context context) {
-        super(context, "budgetman.db", null, 1);
+        super(context, "budgetman.db", null, 2);
     }
 
     @Override
@@ -53,8 +55,18 @@ public class ModelAPI extends SQLiteOpenHelper {
         onCreate(db);
     }
 
+    @Override
+    public void onDowngrade(SQLiteDatabase db, int oldVersion, int newVersion) {
 
-// ***************************************************************
+        // Dropping tables for recreation on downgrade
+        db.execSQL("drop table if exists budget");
+        db.execSQL("drop table if exists budget_category");
+        db.execSQL("drop table if exists category_transaction");
+
+        onCreate(db);
+    }
+
+    // ***************************************************************
 
     public Budget getCurrentMonthBudget() {
 
@@ -72,7 +84,7 @@ public class ModelAPI extends SQLiteOpenHelper {
         if (res.getCount() == 0) {
             res.close();
             uniqueBudget = new Budget(Integer.parseInt(currentMonthID),
-                    new BigDecimal("0"), month, new ArrayList<Category>());
+                    new BigDecimal("0"), month, new HashSet<Category>());
 
             res.close();
 
@@ -82,7 +94,7 @@ public class ModelAPI extends SQLiteOpenHelper {
             res.moveToFirst();
             String income = res.getString(res.getColumnIndex("income"));
             uniqueBudget = new Budget(Integer.parseInt(currentMonthID),
-                    new BigDecimal(income), month, new ArrayList<Category>());
+                    new BigDecimal(income), month, new HashSet<Category>());
 
             res.close();
 
@@ -145,7 +157,7 @@ public class ModelAPI extends SQLiteOpenHelper {
 
         if (res.getCount() > 0) {
 
-            List<Category> categories = uniqueBudget.getCategories();
+            Set<Category> categories = uniqueBudget.getCategories();
 
             res.moveToFirst();
 
@@ -242,24 +254,26 @@ public class ModelAPI extends SQLiteOpenHelper {
 
         db.execSQL("delete from budget_category where budget=" + budget_id);
 
-        List<Category> categories = uniqueBudget.getCategories();
+        Set<Category> categories = uniqueBudget.getCategories();
 
 
-        for (int i = 0; i < categories.size(); i++) {
+        int i = 0;
+        for (Category category : categories) {
 
             // There is a limit of 100 categories per budget ... implement that restriction on the categories activity
             int categorySQLid = Integer.parseInt("" + budget_id + String.format("%02d", i));
 
-            categories.get(i).setSqlId(categorySQLid);
+            category.setSqlId(categorySQLid);
 
             ContentValues values = new ContentValues();
             values.put("id", categorySQLid);
             values.put("budget", budget_id);
-            values.put("name", categories.get(i).getName());
-            values.put("budgeted_amount", categories.get(i).getBudgetedAmount().toString());
+            values.put("name", category.getName());
+            values.put("budgeted_amount", category.getBudgetedAmount().toString());
 
             db.insert("budget_category", null, values);
 
+            i++;
         }
     }
 }

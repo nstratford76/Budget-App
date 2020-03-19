@@ -2,6 +2,7 @@ package edu.byui.budgetman.model;
 
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.Set;
 
 public class Budget {
 
@@ -10,12 +11,12 @@ public class Budget {
     private final int month;
 
     private BigDecimal income;
-    // THIS SHOULD HAVE BEEN A MAP, SINCE CATEGORIES SHOULD HAVE UNIQUE NAMES... ALWAYS CHECK IF A CATEGORY
+
     // EXISTS BEFORE INSERTING A NEW ONE
-    private List<Category> categories;
+    private Set<Category> categories;
 
 
-    public Budget(int budgetid, BigDecimal income, int month, List<Category> categories) {
+    public Budget(int budgetid, BigDecimal income, int month, Set<Category> categories) {
         SQL_BUDGET_ID = budgetid;
         this.month = month;
         this.income = income;
@@ -39,11 +40,11 @@ public class Budget {
         this.income = income;
     }
 
-    public List<Category> getCategories() {
+    public Set<Category> getCategories() {
         return categories;
     }
 
-    public void setCategories(List<Category> categories) {
+    public void setCategories(Set<Category> categories) {
         this.categories = categories;
     }
 
