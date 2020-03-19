@@ -35,8 +35,6 @@ public class MainActivity extends AppCompatActivity {
         Budget budget =
                 BudgetControl.getCurrentMonthBudget();
 
-        budget.setCategories(new HashSet<Category>());
-
         budget.setIncome(new BigDecimal("5300.50"));
 
         BudgetControl.printCurrentMonthBudget();

@@ -44,8 +44,4 @@ public class Budget {
         return categories;
     }
 
-    public void setCategories(Set<Category> categories) {
-        this.categories = categories;
-    }
-
 }
