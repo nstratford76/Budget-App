@@ -58,9 +58,11 @@ public class ModelAPI extends SQLiteOpenHelper {
 
     public Budget getCurrentMonthBudget() {
 
+        if (uniqueBudget != null)
+            return uniqueBudget;
 
         Calendar cal = Calendar.getInstance();
-        int month = cal.get(Calendar.MONTH);
+        int month = cal.get(Calendar.MONTH) + 1;
         int year = cal.get(Calendar.YEAR);
         String currentMonthID = "" + year + "" + String.format("%02d", month);
 
@@ -172,6 +174,8 @@ public class ModelAPI extends SQLiteOpenHelper {
 
     private static boolean insertBudget(SQLiteDatabase db) {
 
+        db.execSQL("delete from budget where id=" + uniqueBudget.getSQL_BUDGET_ID());
+
         ContentValues values = new ContentValues();
         values.put("id", uniqueBudget.getSQL_BUDGET_ID());
         values.put("month", uniqueBudget.getMonth());
@@ -181,12 +185,14 @@ public class ModelAPI extends SQLiteOpenHelper {
     }
 
 
-    public void saveAppBudgetChanges() {
+    public void saveAppBudgetChanges() throws NonInitializedBudgetException {
 
+        if (uniqueBudget == null) {
+            throw new NonInitializedBudgetException("Budget hasn't been initialized at this point of execution");
+        }
         // Delete budget with current id
 
         SQLiteDatabase db = this.getWritableDatabase();
-        db.execSQL("delete from budget where id=" + uniqueBudget.getSQL_BUDGET_ID());
 
         insertBudget(db);
 

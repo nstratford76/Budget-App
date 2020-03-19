@@ -10,6 +10,8 @@ public class Budget {
     private final int month;
 
     private BigDecimal income;
+    // THIS SHOULD HAVE BEEN A MAP, SINCE CATEGORIES SHOULD HAVE UNIQUE NAMES... ALWAYS CHECK IF A CATEGORY
+    // EXISTS BEFORE INSERTING A NEW ONE
     private List<Category> categories;
 
 
@@ -44,4 +46,5 @@ public class Budget {
     public void setCategories(List<Category> categories) {
         this.categories = categories;
     }
+
 }
