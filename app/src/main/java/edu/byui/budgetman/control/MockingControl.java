@@ -40,15 +40,37 @@ public class MockingControl {
 
             foodTransactions.add(new Transaction(new BigDecimal("13.50"), "Subway Sandwich"));
 
-            foodTransactions.add(new Transaction(new BigDecimal("13.50"), "Subway Sandwich"));
+            foodTransactions.add(new Transaction(new BigDecimal("7.25"), "Pop Corn Bag"));
 
-            foodTransactions.add(new Transaction(new BigDecimal("13.50"), "Subway Sandwich"));
+            foodTransactions.add(new Transaction(new BigDecimal("20.75"), "SuperBurger Burger"));
 
-            foodTransactions.add(new Transaction(new BigDecimal("13.50"), "Subway Sandwich"));
+            foodTransactions.add(new Transaction(new BigDecimal("50.23"), "Caesar Salad"));
 
-            // TODO keep on building the mock
         }
 
+
+        Category transportationCategory = budget.getCategoryByName("Transportation");
+        if (transportationCategory != null) {
+            List<Transaction> transportTransactions = transportationCategory.getTransactions();
+
+            transportTransactions.add(new Transaction(new BigDecimal("75.60"), "Gas Filling and storage"));
+
+            transportTransactions.add(new Transaction(new BigDecimal("17.25"), "Flat tire fix"));
+
+            transportTransactions.add(new Transaction(new BigDecimal("60"), "Wipers replacement"));
+
+            transportTransactions.add(new Transaction(new BigDecimal("4746.78"), "Broken WindShield Replacement"));
+        }
+
+
+        Category moviesCategory = budget.getCategoryByName("Movies");
+        if (moviesCategory != null) {
+            List<Transaction> moviesTransactions = moviesCategory.getTransactions();
+
+            moviesTransactions.add(new Transaction(new BigDecimal("7.75"), "Disney+ monthly service"));
+        }
+
+        BudgetControl.printCurrentMonthBudget();
 
     }
 }
