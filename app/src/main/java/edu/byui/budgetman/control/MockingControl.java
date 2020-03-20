@@ -18,7 +18,7 @@ public class MockingControl {
         BudgetControl.printCurrentMonthBudget();
 
         // Setting some income to 10,000
-        budget.setIncome(new BigDecimal("10000"));
+        budget.setIncome(new BigDecimal("700"));
 
         // Getting hold of the categories reference
         Set<Category> categories = budget.getCategories();
@@ -59,7 +59,7 @@ public class MockingControl {
 
             transportTransactions.add(new Transaction(new BigDecimal("60"), "Wipers replacement"));
 
-            transportTransactions.add(new Transaction(new BigDecimal("4746.78"), "Broken WindShield Replacement"));
+            transportTransactions.add(new Transaction(new BigDecimal("100.78"), "Broken WindShield Replacement"));
         }
 
 

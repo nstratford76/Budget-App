@@ -8,6 +8,7 @@ import java.util.List;
 
 import edu.byui.budgetman.model.Budget;
 import edu.byui.budgetman.model.Category;
+import edu.byui.budgetman.model.Transaction;
 
 public class ChartDrawingControl {
 
@@ -16,23 +17,34 @@ public class ChartDrawingControl {
 
         Budget budget = BudgetControl.getCurrentMonthBudget();
 
-        List<PieEntry> pieChartEntries = new ArrayList<>();
-
         BigDecimal incomeLeft = budget.getIncome();
+
+
+        List<PieEntry> pieChartEntries = new ArrayList<>();
 
         for (Category category : budget.getCategories()) {
 
-            category.getTransactions()
+            BigDecimal categorySum = new BigDecimal(0);
 
+            List<Transaction> transactions = category.getTransactions();
 
+            for (Transaction transaction : transactions) {
+
+                categorySum = categorySum.add(transaction.getAmount());
+
+            }
+
+            pieChartEntries.add(new PieEntry(categorySum.floatValue(), category.getName()));
+
+            incomeLeft = incomeLeft.subtract(categorySum);
 
         }
 
 
-        pieChartEntries.add(new PieEntry(25f, "Some"));
-        pieChartEntries.add(new PieEntry(25f, "Label"));
+        if (incomeLeft.doubleValue() > 0)
+            pieChartEntries.add(new PieEntry(incomeLeft.floatValue(), "INCOME LEFT"));
 
-        pieChartEntries.add(new PieEntry(50f, "Here"));
+
         return pieChartEntries;
     }
 
