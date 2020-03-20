@@ -10,6 +10,7 @@ import java.util.HashSet;
 
 import edu.byui.budgetman.R;
 import edu.byui.budgetman.control.BudgetControl;
+import edu.byui.budgetman.control.MockingControl;
 import edu.byui.budgetman.model.Budget;
 import edu.byui.budgetman.model.Category;
 import edu.byui.budgetman.model.Transaction;
@@ -29,23 +30,8 @@ public class MainActivity extends AppCompatActivity {
 
         /*******************************/
 
-
-        BudgetControl.printCurrentMonthBudget();
-
-        Budget budget =
-                BudgetControl.getCurrentMonthBudget();
-
-        budget.setIncome(new BigDecimal("5300.50"));
-
-        BudgetControl.printCurrentMonthBudget();
-
-        Category firstCategory = new Category("myFirstCategory", new BigDecimal("250"), new ArrayList<Transaction>());
-
-        budget.getCategories().add(firstCategory);
-
-        firstCategory.getTransactions().add(new Transaction(new BigDecimal("22"), "I just wanted it"));
-
-        BudgetControl.saveCurrentMonthBudget();
+        // Temporal
+        MockingControl.fillBudgetWithMockData();
 
 
     }

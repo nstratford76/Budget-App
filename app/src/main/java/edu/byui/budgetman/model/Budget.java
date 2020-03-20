@@ -1,6 +1,7 @@
 package edu.byui.budgetman.model;
 
 import java.math.BigDecimal;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
@@ -43,5 +44,26 @@ public class Budget {
     public Set<Category> getCategories() {
         return categories;
     }
+
+
+    /**
+     * Returns the category with the requested name for the calling Budget, or null if
+     * not found
+     */
+    public Category getCategoryByName(String categoryName) {
+        if (categoryName == null) {
+            return null;
+        } else {
+
+            for (Category currentCategory : categories) {
+
+                if (currentCategory.getName().equals(categoryName)) {
+                    return currentCategory;
+                }
+            }
+        }
+        return null;
+    }
+
 
 }
