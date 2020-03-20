@@ -30,8 +30,16 @@ public class MainActivity extends AppCompatActivity {
 
         /*******************************/
 
-        // Temporal
+
+        if (BudgetControl.getCurrentMonthBudget().getIncome().compareTo(new BigDecimal("0")) == 0) {
+            // TODO redirect to set income activity
+        }
+
+
+        // Temporal mocking filling for testing
         MockingControl.fillBudgetWithMockData();
+
+        
 
 
     }
