@@ -3,5 +3,3 @@
  * and provide a connection between view and model classes
  * */
 package edu.byui.budgetman.control;
-import edu.byui.budgetman.model.*;
-import edu.byui.budgetman.view.*;

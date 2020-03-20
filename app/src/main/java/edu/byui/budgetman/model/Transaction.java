@@ -9,10 +9,10 @@ public class Transaction {
     // Only getter method will be provided for this since it will always default to current date
     // from the constructor
     private Date date; // rolled backwards to Date instead of LocalDate for API compatibility
-    private Float amount;
+    private BigDecimal amount;
     private String description;
 
-    public Transaction(Float amount, String description) {
+    public Transaction(BigDecimal amount, String description) {
 
         // When a Transaction is created it defaults its date to the current date
         this.date = new Date();
@@ -25,11 +25,11 @@ public class Transaction {
         return date;
     }
 
-    public Float getAmount() {
+    public BigDecimal getAmount() {
         return amount;
     }
 
-    public void setAmount(Float amount) {
+    public void setAmount(BigDecimal amount) {
         this.amount = amount;
     }
 
