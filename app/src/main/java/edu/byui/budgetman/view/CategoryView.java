@@ -1,13 +1,20 @@
 package edu.byui.budgetman.view;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.os.Bundle;
 import android.widget.TextView;
 
-import java.util.HashMap;
+import androidx.appcompat.app.AppCompatActivity;
+
+import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
 
 import edu.byui.budgetman.R;
+import edu.byui.budgetman.control.BudgetControl;
+import edu.byui.budgetman.model.Budget;
+import edu.byui.budgetman.model.Category;
+import edu.byui.budgetman.model.Transaction;
 
 public class CategoryView extends AppCompatActivity {
 
@@ -16,9 +23,12 @@ public class CategoryView extends AppCompatActivity {
     String category;
     String amountText;
 
+
+    List<Transaction> transactions = new ArrayList<Transaction>();
+
     // This Map will keep track of the categories and pair them up
 
-    HashMap<Float,String> hm= new HashMap<Float,String>();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,8 +44,13 @@ public class CategoryView extends AppCompatActivity {
         input2 = (TextView) findViewById(R.id.editText2);
         amountText = input.getText().toString();
 
-        Float amount = Float.parseFloat(amountText);
-        hm.put(amount, category);
+        BigDecimal amount = new BigDecimal(amountText);
+        Category cat = new Category(category, amount, transactions);
+        Budget budget = BudgetControl.getCurrentMonthBudget();
+        Set<Category> categories = budget.getCategories();
+        categories.add(cat);
+
+
         input.setText("");
         input2.setText("");
     }

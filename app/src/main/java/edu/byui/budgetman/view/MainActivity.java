@@ -2,7 +2,12 @@ package edu.byui.budgetman.view;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.MenuItem;
+import android.view.View;
+import android.widget.PopupMenu;
+import android.widget.Toast;
 
 import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.data.PieData;
@@ -21,7 +26,7 @@ import edu.byui.budgetman.model.Budget;
 import edu.byui.budgetman.model.Category;
 import edu.byui.budgetman.model.Transaction;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuItemClickListener {
 
     private PieChart pieChart;
 
@@ -63,5 +68,25 @@ public class MainActivity extends AppCompatActivity {
         pieChart.invalidate();
     }
 
+    public void showPopUp(View v) {
+        PopupMenu popup = new PopupMenu(this, v);
+        popup.setOnMenuItemClickListener(this);
+        popup.inflate(R.menu.popup_menu);
+        popup.show();
+    }
 
+    @Override
+    public boolean onMenuItemClick(MenuItem item) {
+        switch(item.getItemId()) {
+            case R.id.item1:
+                Intent intent = new Intent(this, CategoryView.class);
+                startActivity(intent);
+                return true;
+            case R.id.item2:
+                Toast.makeText(this, "Item 2 clicked", Toast.LENGTH_SHORT);
+                return true;
+            default:
+                return false;
+        }
+    }
 }
