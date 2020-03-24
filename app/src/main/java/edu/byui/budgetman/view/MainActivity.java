@@ -8,6 +8,7 @@ import android.widget.PopupMenu;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.data.PieData;
@@ -19,11 +20,14 @@ import java.math.BigDecimal;
 import edu.byui.budgetman.R;
 import edu.byui.budgetman.control.BudgetControl;
 import edu.byui.budgetman.control.ChartDrawingControl;
-import edu.byui.budgetman.control.MockingControl;
+import edu.byui.budgetman.control.RealControl;
 
 public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuItemClickListener {
 
     private PieChart pieChart;
+    private RecyclerView categories;
+    private RecyclerView.Adapter adapter;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,16 +42,32 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
 
         /*******************************/
 
-
         if (BudgetControl.getCurrentMonthBudget().getIncome().compareTo(new BigDecimal("0")) == 0) {
 
             Intent intent = new Intent(this, GetIncome.class);
             startActivity(intent);
         }
 
+        if (BudgetControl.getCurrentMonthBudget().getCategories() == null) {
+            Intent intent = new Intent(this, CategoryView.class);
+            startActivity(intent);
+        }
 
         // Temporal mocking filling for testing
-        MockingControl.fillBudgetWithMockData();
+        RealControl.fillBudgetWithData();
+        //MockingControl.fillBudgetWithMockData();
+
+        /*Budget budget = BudgetControl.getCurrentMonthBudget();
+
+        ArrayList<Category> cats = (ArrayList<Category>) budget.getCategories();
+        categories = (RecyclerView) findViewById(R.id.categoryList);
+        RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(this);
+        categories.setLayoutManager(mLayoutManager);
+
+        adapter = new BudgetAdapter(cats);
+        categories.setAdapter(adapter);/*/
+
+        BudgetControl.printCurrentMonthBudget();
 
         drawPieChart();
 
@@ -74,7 +94,7 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
 
     @Override
     public boolean onMenuItemClick(MenuItem item) {
-        switch(item.getItemId()) {
+        switch (item.getItemId()) {
             case R.id.item1:
                 Intent intent = new Intent(this, CategoryView.class);
                 startActivity(intent);
@@ -82,8 +102,32 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
             case R.id.item2:
                 Toast.makeText(this, "Item 2 clicked", Toast.LENGTH_SHORT);
                 return true;
+            case R.id.item3:
+                Intent intent3 = new Intent(this, GetIncome.class);
+                startActivity(intent3);
+
+            case R.id.option1:
+                RealControl.resetBudget();
+                Intent intent4 = new Intent(this, GetIncome.class);
+                startActivity(intent4);
+                return true;
+            case R.id.option2:
+                Toast.makeText(this, "Item 2 clicked", Toast.LENGTH_SHORT);
+                return true;
+            case R.id.option3:
+                Intent intent6 = new Intent(this, GetIncome.class);
+                startActivity(intent6);
+
             default:
                 return false;
         }
     }
+
+    public void showPopUpSettings(View view) {
+        PopupMenu popup = new PopupMenu(this, view);
+        popup.setOnMenuItemClickListener(this);
+        popup.inflate(R.menu.popup_menu_settings);
+        popup.show();
+    }
 }
+
