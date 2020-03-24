@@ -11,6 +11,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="AllowBackup">
+        <activity android:name=".view.GetIncome"></activity>
         <activity android:name=".view.CategoryView" />
         <activity android:name=".view.MainActivity">
             <intent-filter>

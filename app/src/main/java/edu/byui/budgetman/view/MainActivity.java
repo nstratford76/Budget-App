@@ -1,7 +1,5 @@
 package edu.byui.budgetman.view;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
@@ -9,22 +7,19 @@ import android.view.View;
 import android.widget.PopupMenu;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.data.PieData;
 import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.utils.ColorTemplate;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.HashSet;
 
 import edu.byui.budgetman.R;
 import edu.byui.budgetman.control.BudgetControl;
 import edu.byui.budgetman.control.ChartDrawingControl;
 import edu.byui.budgetman.control.MockingControl;
-import edu.byui.budgetman.model.Budget;
-import edu.byui.budgetman.model.Category;
-import edu.byui.budgetman.model.Transaction;
 
 public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuItemClickListener {
 
@@ -45,7 +40,9 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
 
 
         if (BudgetControl.getCurrentMonthBudget().getIncome().compareTo(new BigDecimal("0")) == 0) {
-            // TODO redirect to set income activity
+
+            Intent intent = new Intent(this, GetIncome.class);
+            startActivity(intent);
         }
 
 

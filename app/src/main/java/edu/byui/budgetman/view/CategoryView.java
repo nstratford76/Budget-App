@@ -1,6 +1,7 @@
 package edu.byui.budgetman.view;
 
 import android.os.Bundle;
+import android.view.View;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -36,7 +37,7 @@ public class CategoryView extends AppCompatActivity {
         setContentView(R.layout.activity_category_view);
     }
 
-    public void getCategory() {
+    public void getCategory(View v) {
 
         input = (TextView) findViewById(R.id.editText);
         category = input.getText().toString();
@@ -49,8 +50,7 @@ public class CategoryView extends AppCompatActivity {
         Budget budget = BudgetControl.getCurrentMonthBudget();
         Set<Category> categories = budget.getCategories();
         categories.add(cat);
-
-
+        BudgetControl.saveCurrentMonthBudget();
         input.setText("");
         input2.setText("");
     }
