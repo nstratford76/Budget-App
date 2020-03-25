@@ -9,7 +9,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
-import java.util.List;
 
 import edu.byui.budgetman.R;
 import edu.byui.budgetman.model.Budget;
@@ -27,11 +26,7 @@ public class CategoryView extends AppCompatActivity {
     String amountText;
 
 
-    List<Transaction> transactions = new ArrayList<Transaction>();
-
     // This Map will keep track of the categories and pair them up
-
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,7 +43,7 @@ public class CategoryView extends AppCompatActivity {
         amountText = input2.getText().toString();
 
         BigDecimal amount = new BigDecimal(amountText);
-        Category cat = new Category(category, amount, transactions);
+        Category cat = new Category(category, amount, new ArrayList<Transaction>());
         Budget budget = getCurrentMonthBudget();
         ArrayList<Category> categories = budget.getCategories();
         categories.add(cat);
