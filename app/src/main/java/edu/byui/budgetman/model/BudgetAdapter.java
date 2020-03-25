@@ -12,6 +12,7 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 
 import edu.byui.budgetman.R;
+import edu.byui.budgetman.control.BudgetControl;
 
 public class BudgetAdapter extends RecyclerView.Adapter<BudgetAdapter.ViewHolder> {
 
@@ -31,12 +32,18 @@ public class BudgetAdapter extends RecyclerView.Adapter<BudgetAdapter.ViewHolder
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        Category cat =  categories.get(position);
+
+        Budget budget = BudgetControl.getCurrentMonthBudget();
+
+        BigDecimal income = budget.getIncome();
+        String mIncome = income.toString();
+        Category cat = categories.get(position);
 
         BigDecimal amount = cat.getBudgetedAmount();
 
         String number = amount.toString();
 
+        //holder.income.setText(mIncome);
         holder.category.setText(cat.getName());
         holder.remaining.setText(number);
 
@@ -55,14 +62,16 @@ public class BudgetAdapter extends RecyclerView.Adapter<BudgetAdapter.ViewHolder
     public static class ViewHolder extends RecyclerView.ViewHolder {
 
         public final View view;
-        public TextView category;
-        public TextView remaining;
+        public final TextView category;
+        public final TextView remaining;
+        public final TextView income;
 
         public ViewHolder(@NonNull View view) {
             super(view);
             this.view = view;
             category = view.findViewById(R.id.category);
             remaining = view.findViewById(R.id.remaining);
+            income = view.findViewById(R.id.info);
         }
     }
 

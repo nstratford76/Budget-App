@@ -8,6 +8,7 @@ import android.widget.PopupMenu;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.github.mikephil.charting.charts.PieChart;
@@ -16,11 +17,15 @@ import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.utils.ColorTemplate;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 
 import edu.byui.budgetman.R;
 import edu.byui.budgetman.control.BudgetControl;
 import edu.byui.budgetman.control.ChartDrawingControl;
 import edu.byui.budgetman.control.RealControl;
+import edu.byui.budgetman.model.Budget;
+import edu.byui.budgetman.model.BudgetAdapter;
+import edu.byui.budgetman.model.Category;
 
 public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuItemClickListener {
 
@@ -57,15 +62,15 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
         RealControl.fillBudgetWithData();
         //MockingControl.fillBudgetWithMockData();
 
-        /*Budget budget = BudgetControl.getCurrentMonthBudget();
+        Budget budget = BudgetControl.getCurrentMonthBudget();
 
-        ArrayList<Category> cats = (ArrayList<Category>) budget.getCategories();
+        ArrayList<Category> cats = budget.getCategories();
         categories = (RecyclerView) findViewById(R.id.categoryList);
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(this);
         categories.setLayoutManager(mLayoutManager);
 
         adapter = new BudgetAdapter(cats);
-        categories.setAdapter(adapter);/*/
+        categories.setAdapter(adapter);
 
         BudgetControl.printCurrentMonthBudget();
 

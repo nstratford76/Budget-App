@@ -14,4 +14,5 @@
     <string name="Save">Save</string>
     <string name="Add">+</string>
     <string name="getIncome">Please enter your monthly income</string>
+    <string name="income_amount">Your Monthly Income Is:</string>
 </resources>
