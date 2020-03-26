@@ -12,9 +12,7 @@ import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 /**
  * A basic, possibly not efficient model api for our application
@@ -84,7 +82,7 @@ public class ModelAPI extends SQLiteOpenHelper {
         if (res.getCount() == 0) {
             res.close();
             uniqueBudget = new Budget(Integer.parseInt(currentMonthID),
-                    new BigDecimal("0"), month, new HashSet<Category>());
+                    new BigDecimal("0"), month, new ArrayList<Category>());
 
             res.close();
 
@@ -94,7 +92,7 @@ public class ModelAPI extends SQLiteOpenHelper {
             res.moveToFirst();
             String income = res.getString(res.getColumnIndex("income"));
             uniqueBudget = new Budget(Integer.parseInt(currentMonthID),
-                    new BigDecimal(income), month, new HashSet<Category>());
+                    new BigDecimal(income), month, new ArrayList<Category>());
 
             res.close();
 
@@ -157,7 +155,7 @@ public class ModelAPI extends SQLiteOpenHelper {
 
         if (res.getCount() > 0) {
 
-            Set<Category> categories = uniqueBudget.getCategories();
+            ArrayList<Category> categories = uniqueBudget.getCategories();
 
             res.moveToFirst();
 
@@ -254,7 +252,7 @@ public class ModelAPI extends SQLiteOpenHelper {
 
         db.execSQL("delete from budget_category where budget=" + budget_id);
 
-        Set<Category> categories = uniqueBudget.getCategories();
+        ArrayList<Category> categories = uniqueBudget.getCategories();
 
 
         int i = 0;

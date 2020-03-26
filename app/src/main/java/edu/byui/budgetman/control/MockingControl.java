@@ -3,7 +3,6 @@ package edu.byui.budgetman.control;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 import edu.byui.budgetman.model.Budget;
 import edu.byui.budgetman.model.Category;
@@ -21,7 +20,7 @@ public class MockingControl {
         budget.setIncome(new BigDecimal("700"));
 
         // Getting hold of the categories reference
-        Set<Category> categories = budget.getCategories();
+        ArrayList<Category> categories = budget.getCategories();
 
 
         // Clearing Budget Transactional Data if that exists

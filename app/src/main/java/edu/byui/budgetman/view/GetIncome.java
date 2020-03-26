@@ -1,5 +1,6 @@
 package edu.byui.budgetman.view;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
@@ -23,7 +24,7 @@ public class GetIncome extends AppCompatActivity {
         setContentView(R.layout.activity_get_income);
     }
 
-    public void getIncome(View view) {
+    public void getIncome(View v) {
 
         Budget budget = BudgetControl.getCurrentMonthBudget();
         input = (TextView) findViewById(R.id.editText3);
@@ -32,6 +33,8 @@ public class GetIncome extends AppCompatActivity {
 
         budget.setIncome(income);
         BudgetControl.saveCurrentMonthBudget();
+        Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
 
     }
 }
