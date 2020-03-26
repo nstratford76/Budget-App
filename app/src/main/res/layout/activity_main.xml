@@ -61,14 +61,45 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/categoryList"
-        android:layout_width="409dp"
-        android:layout_height="126dp"
+        android:layout_width="413dp"
+        android:layout_height="91dp"
         android:layout_marginStart="2dp"
         android:layout_marginTop="2dp"
         app:layout_constraintBottom_toTopOf="@+id/floatingActionButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/pieChart"
+        app:layout_constraintTop_toBottomOf="@+id/incomeInfo"
         tools:listitem="@layout/category_list" />
+
+    <TextView
+        android:id="@+id/incomeInfo"
+        android:layout_width="181dp"
+        android:layout_height="32dp"
+        android:layout_marginStart="59dp"
+        android:layout_marginTop="3dp"
+        android:layout_marginEnd="6dp"
+        android:layout_marginBottom="2dp"
+        android:text="@string/income_amount"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toTopOf="@+id/categoryList"
+        app:layout_constraintEnd_toStartOf="@+id/textView6"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/pieChart" />
+
+    <TextView
+        android:id="@+id/textView6"
+        android:layout_width="124dp"
+        android:layout_height="30dp"
+        android:layout_marginStart="6dp"
+        android:layout_marginTop="3dp"
+        android:layout_marginEnd="44dp"
+        android:layout_marginBottom="4dp"
+        android:text="TextView"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toTopOf="@+id/categoryList"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/incomeInfo"
+        app:layout_constraintTop_toBottomOf="@+id/pieChart"
+        app:layout_constraintVertical_bias="0.0" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

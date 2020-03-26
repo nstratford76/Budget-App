@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.PopupMenu;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -71,6 +72,12 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
 
         adapter = new BudgetAdapter(cats);
         categories.setAdapter(adapter);
+
+        TextView view = findViewById(R.id.textView6);
+        BigDecimal income = budget.getIncome();
+        String incomeText = income.toString();
+
+        view.setText(incomeText);
 
         BudgetControl.printCurrentMonthBudget();
 

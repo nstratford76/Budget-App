@@ -43,14 +43,21 @@ public class CategoryView extends AppCompatActivity {
         amountText = input2.getText().toString();
 
         BigDecimal amount = new BigDecimal(amountText);
-        Category cat = new Category(category, amount, new ArrayList<Transaction>());
+
         Budget budget = getCurrentMonthBudget();
         ArrayList<Category> categories = budget.getCategories();
-        categories.add(cat);
+
+        if (budget.getCategoryByName(category) != null) {
+            Category cat = budget.getCategoryByName(category);
+            cat.setBudgetedAmount(amount);
+        }
+        else {
+            Category cat = new Category(category, amount, new ArrayList<Transaction>());
+            categories.add(cat);
+        }
         saveCurrentMonthBudget();
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
     }
-
 
 }
