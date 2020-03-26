@@ -112,12 +112,9 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
                 startActivity(intent);
                 return true;
             case R.id.item2:
-                Toast.makeText(this, "Item 2 clicked", Toast.LENGTH_SHORT);
+                Intent intent2 = new Intent(this, TransactionView.class);
+                startActivity(intent2);
                 return true;
-            case R.id.item3:
-                Intent intent3 = new Intent(this, GetIncome.class);
-                startActivity(intent3);
-
             case R.id.option1:
                 RealControl.resetBudget();
                 Intent intent4 = new Intent(this, GetIncome.class);
