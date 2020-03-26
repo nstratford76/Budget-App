@@ -13,7 +13,9 @@
         tools:ignore="AllowBackup">
         <activity android:name=".view.GetIncome"></activity>
         <activity android:name=".view.CategoryView" />
+        <activity android:name=".view.TransactionView"/>
         <activity android:name=".view.MainActivity">
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
