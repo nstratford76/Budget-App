@@ -133,8 +133,8 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
                 startActivity(intent4);
                 return true;
             case R.id.option2:
-                Toast.makeText(this, "Item 2 clicked", Toast.LENGTH_SHORT);
-                return true;
+                Intent intent5 = new Intent(this, RemoveCategoryView.class);
+                startActivity(intent5);
             case R.id.option3:
                 Intent intent6 = new Intent(this, GetIncome.class);
                 startActivity(intent6);
