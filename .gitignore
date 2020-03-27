@@ -7,3 +7,9 @@
 /captures
 .externalNativeBuild
 .cxx
+
+
+# vscode reading
+.classpath
+*.project
+*.eclipse.*
