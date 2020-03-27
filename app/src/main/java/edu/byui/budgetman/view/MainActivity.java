@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.github.mikephil.charting.charts.PieChart;
+import com.github.mikephil.charting.components.Description;
 import com.github.mikephil.charting.data.PieData;
 import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.utils.ColorTemplate;
@@ -90,10 +91,13 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
 
 
         pieChart = (PieChart) findViewById(R.id.pieChart);
-        PieDataSet pieDataSet = new PieDataSet(ChartDrawingControl.getChartDataSet(), "Budget Status");
+        PieDataSet pieDataSet = new PieDataSet(ChartDrawingControl.getChartDataSet(), "");
         pieDataSet.setColors(ColorTemplate.COLORFUL_COLORS);
         pieChart.setData(new PieData(pieDataSet));
         pieChart.animateXY(1000, 1000);
+        Description description = new Description();
+        description.setText("Budget Status");
+        pieChart.setDescription(description);
         pieChart.invalidate();
     }
 

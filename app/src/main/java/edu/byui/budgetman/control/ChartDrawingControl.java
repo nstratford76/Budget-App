@@ -34,7 +34,11 @@ public class ChartDrawingControl {
 
             }
 
-            pieChartEntries.add(new PieEntry(categorySum.floatValue(), category.getName()));
+            // We are checking here because a category could have transactions with amounts of 0
+            // so only avoid to display those for which the sum totals to 0
+            if (categorySum.compareTo(new BigDecimal(0)) != 0) {
+                pieChartEntries.add(new PieEntry(categorySum.floatValue(), category.getName()));
+            }
 
             incomeLeft = incomeLeft.subtract(categorySum);
 
