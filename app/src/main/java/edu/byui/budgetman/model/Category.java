@@ -41,8 +41,10 @@ public class Category {
         this.budgetedAmount = budgetedAmount;
     }
 
-    public List<Transaction> getTransactions() {
-        return transactions;
+    public List<Transaction> getTransactions() { return transactions; }
+    public void addTransaction(BigDecimal amount) {
+        Transaction newTransaction = new Transaction(amount);
+        transactions.add(newTransaction);
     }
 
     @Override

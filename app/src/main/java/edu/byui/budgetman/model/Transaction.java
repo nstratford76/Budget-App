@@ -27,6 +27,13 @@ public class Transaction {
 
     }
 
+    public Transaction(BigDecimal amount) {
+        this.date = new Date();
+        this.amount = amount;
+        this.description = "";
+    }
+
+
     public Date getDate() {
         return date;
     }
