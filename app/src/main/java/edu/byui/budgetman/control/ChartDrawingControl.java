@@ -35,13 +35,18 @@ public class ChartDrawingControl {
             }
 
             // We are checking here because a category could have transactions with amounts of 0
-            // so only avoid to display those for which the sum totals to 0
-            if (categorySum.compareTo(new BigDecimal(0)) != 0) {
+            // so only avoid to display those for which the sum totals to 0 or for which the sum
+            // results in a negative number ... if that happens, those will add up to the income in the graph ..
+            // in the line after the following "if"
+            // because that means there is even more money available from that category
+            if (categorySum.compareTo(new BigDecimal(0)) > 0) {
                 pieChartEntries.add(new PieEntry(categorySum.floatValue(), category.getName()));
             }
-
             incomeLeft = incomeLeft.subtract(categorySum);
 
+            // todolaterinameeting: add android:inputType="numberDecimal|numberSigned" to the amount field in
+            // the transactions amount input, to allow for signed-decimal transactions (allowing so to have refunds
+            // or money added to the categories)
         }
 
 
