@@ -19,8 +19,6 @@ import edu.byui.budgetman.control.BudgetControl;
 public class TransactionView extends AppCompatActivity {
     TextView input;
     TextView input2;
-    String category;
-    String amountT;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -29,31 +27,34 @@ public class TransactionView extends AppCompatActivity {
     }
 
     public void getTransaction(View view) {
-        input = (TextView)findViewById(R.id.editText3);
+
+    	// This variables are for the method more than the class
+    	// keeping them in here makes it more testable and possibly reusable
+        String category;
+        String amountT;
+
+        input = (TextView) findViewById(R.id.editText5);
         category = input.getText().toString();
 
-        input2 = (TextView)findViewById(R.id.editText4);
+        input2 = (TextView) findViewById(R.id.editText4);
         amountT = input2.getText().toString();
 
         BigDecimal amount = new BigDecimal(amountT);
 
         Budget budget = BudgetControl.getCurrentMonthBudget();
-        ArrayList<Category> categories = budget.getCategories();
 
-        int i = 0;
+        // The get category by name, gets the category, or returns null if not found ...
+        Category cate = budget.getCategoryByName(category);
 
-        for (; i < categories.size(); i++) {
-            if (budget.getCategoryByName(categories.get(i).getName()).equals(category)) {
-                Category cat = budget.getCategoryByName(category);
-                cat.addTransaction(amount);
-            }
+        // If the category doesn't exist create a new one with the transaction amount
+        // and add it to the budget
+        if (cate == null) {
+            cate = new Category(category, amount, new ArrayList<Transaction>());
+            budget.getCategories().add(cate);
         }
 
-        if (i == categories.size()) {
-            Category cat = new Category(input2.toString(), amount, new ArrayList<Transaction>());
-            cat.addTransaction(amount);
-            categories.add(cat);
-        }
+		// Then just add the transaction to the category
+        cate.getTransactions().add(new Transaction(amount, null));
 
         BudgetControl.saveCurrentMonthBudget();
         Intent intent = new Intent(this, MainActivity.class);
