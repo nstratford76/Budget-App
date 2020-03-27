@@ -16,6 +16,8 @@
             tools:ignore="LockedOrientationActivity" />
         <activity android:name=".view.TransactionView" android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
+        <activity android:name=".view.RemoveCategoryView" android:screenOrientation="portrait"
+            tools:ignore="LockedOrientationActivity" />
         <activity android:name=".view.MainActivity" android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity">
 
