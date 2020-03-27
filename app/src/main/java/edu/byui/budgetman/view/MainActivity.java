@@ -16,10 +16,12 @@ import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.components.Description;
 import com.github.mikephil.charting.data.PieData;
 import com.github.mikephil.charting.data.PieDataSet;
+import com.github.mikephil.charting.data.PieEntry;
 import com.github.mikephil.charting.utils.ColorTemplate;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.List;
 
 import edu.byui.budgetman.R;
 import edu.byui.budgetman.control.BudgetControl;
@@ -91,8 +93,14 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
 
 
         pieChart = (PieChart) findViewById(R.id.pieChart);
-        PieDataSet pieDataSet = new PieDataSet(ChartDrawingControl.getChartDataSet(), "");
-        pieDataSet.setColors(ColorTemplate.COLORFUL_COLORS);
+
+        List<PieEntry> pieEntries = ChartDrawingControl.getChartDataSet();
+
+        PieDataSet pieDataSet = new PieDataSet(pieEntries, "");
+
+        pieDataSet.setColors(ChartDrawingControl.getRandomColorsArray(pieEntries.size(),
+                pieEntries.get(pieEntries.size() - 1).getLabel().equals("INCOME LEFT")));
+
         pieChart.setData(new PieData(pieDataSet));
         pieChart.animateXY(1000, 1000);
         Description description = new Description();

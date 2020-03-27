@@ -30,7 +30,7 @@
         android:layout_marginEnd="97dp"
         android:layout_marginBottom="467dp"
         android:ems="10"
-        android:inputType="numberDecimal"
+        android:inputType="numberDecimal|numberSigned"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

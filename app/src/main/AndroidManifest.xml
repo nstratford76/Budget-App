@@ -11,10 +11,13 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="AllowBackup">
-        <activity android:name=".view.GetIncome"></activity>
-        <activity android:name=".view.CategoryView" />
-        <activity android:name=".view.TransactionView"/>
-        <activity android:name=".view.MainActivity">
+        <activity android:name=".view.GetIncome" />
+        <activity android:name=".view.CategoryView" android:screenOrientation="portrait"
+            tools:ignore="LockedOrientationActivity" />
+        <activity android:name=".view.TransactionView" android:screenOrientation="portrait"
+            tools:ignore="LockedOrientationActivity" />
+        <activity android:name=".view.MainActivity" android:screenOrientation="portrait"
+            tools:ignore="LockedOrientationActivity">
 
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
