@@ -135,9 +135,11 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
             case R.id.option2:
                 Intent intent5 = new Intent(this, RemoveCategoryView.class);
                 startActivity(intent5);
+                return true;
             case R.id.option3:
                 Intent intent6 = new Intent(this, GetIncome.class);
                 startActivity(intent6);
+                return true;
 
             default:
                 return false;
