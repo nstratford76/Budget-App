@@ -31,15 +31,7 @@ public class ChartDrawingControl {
 
         for (Category category : budget.getCategories()) {
 
-            BigDecimal categorySum = new BigDecimal(0);
-
-            List<Transaction> transactions = category.getTransactions();
-
-            for (Transaction transaction : transactions) {
-
-                categorySum = categorySum.add(transaction.getAmount());
-
-            }
+            BigDecimal categorySum = category.getTransactionsSum();
 
             // We are checking here because a category could have transactions with amounts of 0
             // so only avoid to display those for which the sum totals to 0 or for which the sum

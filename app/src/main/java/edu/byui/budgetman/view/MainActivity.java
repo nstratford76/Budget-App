@@ -37,7 +37,6 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
     private RecyclerView categories;
     private RecyclerView.Adapter adapter;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -57,14 +56,13 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
             startActivity(intent);
         }
 
-        if (BudgetControl.getCurrentMonthBudget().getCategories() == null) {
-            Intent intent = new Intent(this, CategoryView.class);
-            startActivity(intent);
-        }
+        drawCategoriesSumary();
 
-        // Temporal mocking filling for testing
-        RealControl.fillBudgetWithData();
-        //MockingControl.fillBudgetWithMockData();
+        drawPieChart();
+
+    }
+
+    private void drawCategoriesSumary() {
 
         Budget budget = BudgetControl.getCurrentMonthBudget();
 
@@ -83,14 +81,9 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
         view.setText(incomeText);
 
         BudgetControl.printCurrentMonthBudget();
-
-        drawPieChart();
-
-
     }
 
     private void drawPieChart() {
-
 
         pieChart = (PieChart) findViewById(R.id.pieChart);
 
@@ -153,4 +146,3 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
         popup.show();
     }
 }
-

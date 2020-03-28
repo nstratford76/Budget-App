@@ -41,10 +41,26 @@ public class Category {
         this.budgetedAmount = budgetedAmount;
     }
 
-    public List<Transaction> getTransactions() { return transactions; }
+    public List<Transaction> getTransactions() {
+        return transactions;
+    }
+
     public void addTransaction(BigDecimal amount) {
         Transaction newTransaction = new Transaction(amount);
         transactions.add(newTransaction);
+    }
+
+    public BigDecimal getTransactionsSum() {
+
+        BigDecimal categorySum = new BigDecimal(0);
+
+        for (Transaction transaction : transactions) {
+
+            categorySum = categorySum.add(transaction.getAmount());
+
+        }
+
+        return categorySum;
     }
 
     @Override

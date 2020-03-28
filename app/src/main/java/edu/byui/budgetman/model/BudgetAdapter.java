@@ -45,7 +45,9 @@ public class BudgetAdapter extends RecyclerView.Adapter<BudgetAdapter.ViewHolder
 
         //holder.income.setText(mIncome);
         holder.category.setText(cat.getName());
-        holder.remaining.setText(number);
+        BigDecimal transactionsSum = cat.getTransactionsSum();
+        holder.remaining.setText("Set: " + amount + ", Spent: " + transactionsSum +
+        " . [Left: " + amount.subtract(transactionsSum) + " ]");
 
     }
 
