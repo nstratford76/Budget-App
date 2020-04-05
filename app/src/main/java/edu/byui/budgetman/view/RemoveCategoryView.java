@@ -18,6 +18,8 @@ import edu.byui.budgetman.model.Transaction;
 
 public class RemoveCategoryView extends AppCompatActivity {
 
+    // private memeber variables
+
     TextView input;
 
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,22 +29,34 @@ public class RemoveCategoryView extends AppCompatActivity {
 
     public void removeCategory(View view) {
 
-        // This variables are for the method more than the class
+        // These variables are for the method more than the class
         // keeping them in here makes it more testable and possibly reusable
         String category;
         String amountT;
 
+        // getting the text from the user and placing it into a string
+
         input = (TextView) findViewById(R.id.editText6);
         category = input.getText().toString();
 
+        // getting the current budget
+
         Budget budget = BudgetControl.getCurrentMonthBudget();
+
+        // checking if the category exists within all entered categories
+
         Category cat = budget.getCategoryByName(category);
+
+        // looping through all the categories within the budget and checking where it is
 
         for (int i = 0; i < budget.getCategories().size(); i++) {
             if (budget.getCategories().get(i) == cat) {
                 budget.getCategories().remove(i);
             }
         }
+
+        // if it existed we delete it if it didn't we do not have to delete it
+        // saving the changes
 
         BudgetControl.saveCurrentMonthBudget();
         Intent intent = new Intent(this, MainActivity.class);
