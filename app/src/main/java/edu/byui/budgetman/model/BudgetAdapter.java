@@ -1,5 +1,6 @@
 package edu.byui.budgetman.model;
 
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -50,13 +51,17 @@ public class BudgetAdapter extends RecyclerView.Adapter<BudgetAdapter.ViewHolder
         String number = amount.toString();
 
         //holder.income.setText(mIncome);
-        holder.category.setText(cat.getName());
+        holder.category.setText(cat.getName() + ".");
         BigDecimal transactionsSum = cat.getTransactionsSum();
-        
-        holder.remaining.setText(number);
-        // todolater ... just uncomment the following lines to allow for categories summaries
-        // holder.remaining.setText("Set: " + amount + ", Spent: " + transactionsSum +
-        // " . [Left: " + amount.subtract(transactionsSum) + " ]");
+
+
+        // Showing the summary for each category
+        BigDecimal difference = amount.subtract(transactionsSum);
+        boolean wentOver = difference.compareTo(new BigDecimal("0")) < 0;
+        holder.remaining.setText(difference.abs().toString() + (wentOver ? " Over" : " left") +
+                ".   (Set: " + amount + ",  Spent: " + transactionsSum + ")");
+        if (wentOver)
+            holder.remaining.setTextColor(Color.parseColor("red"));
 
     }
 
@@ -65,7 +70,7 @@ public class BudgetAdapter extends RecyclerView.Adapter<BudgetAdapter.ViewHolder
         if (categories != null)
             return categories.size();
         else
-           return 0;
+            return 0;
     }
 
 
@@ -85,9 +90,6 @@ public class BudgetAdapter extends RecyclerView.Adapter<BudgetAdapter.ViewHolder
             income = view.findViewById(R.id.info);
         }
     }
-
-
-
 
 
 }
