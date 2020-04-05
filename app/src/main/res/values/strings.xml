@@ -16,7 +16,7 @@
     <string name="getIncome">Please enter your monthly income</string>
     <string name="income_amount">Monthly Income:</string>
 
-    <string-array name="possible_categories">
+    <string-array name="possible_categories" id="possible_categories">
         <item id="item1">"none"</item>
     </string-array>
 </resources>

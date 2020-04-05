@@ -37,13 +37,7 @@ public class TransactionView extends AppCompatActivity implements AdapterView.On
 
     }
 
-    public void getTransaction(View view) {
-
-
-    	// This variables are for the method more than the class
-    	// keeping them in here makes it more testable and possibly reusable
-        String category;
-        String amountT;
+    public void getCategories(View view) {
         Spinner categories = (Spinner) findViewById(R.id.spinner2);
 
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.possible_categories, android.R.layout.simple_spinner_item);
@@ -51,10 +45,22 @@ public class TransactionView extends AppCompatActivity implements AdapterView.On
         categories.setAdapter(adapter);
         categories.setOnItemSelectedListener(this);
 
-        // grabs the user entered text and converts them into strings
+        Budget budget = BudgetControl.getCurrentMonthBudget();
 
-        //input = (TextView) findViewById(R.id.editText5);
-        //category = input.getText().toString();
+        for (Category myCategory: budget.getCategories()) {
+            adapter.add(myCategory.getName());
+        }
+    }
+
+    public void getTransaction(View view) {
+
+
+    	// This variables are for the method more than the class
+    	// keeping them in here makes it more testable and possibly reusable
+        String category;
+        String amountT;
+
+        // grabs the user entered text and converts them into strings
 
         input2 = (TextView) findViewById(R.id.editText4);
         amountT = input2.getText().toString();
@@ -66,10 +72,6 @@ public class TransactionView extends AppCompatActivity implements AdapterView.On
         // grabbing the current months budget
 
         Budget budget = BudgetControl.getCurrentMonthBudget();
-
-        for (int i = 0; i < budget.getCategories().size(); i++) {
-            //categories.getAdapter().getItem();
-        }
 
         // The get category by name, gets the category, or returns null if not found ...
         Category cate = budget.getCategoryByName("Food");
