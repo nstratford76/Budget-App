@@ -53,7 +53,7 @@ public class BudgetAdapter extends RecyclerView.Adapter<BudgetAdapter.ViewHolder
         BigDecimal difference = amount.subtract(transactionsSum);
         boolean wentOver = difference.compareTo(new BigDecimal("0")) < 0;
         holder.remaining.setText(difference.abs().toString() + (wentOver ? " Over" : " left") +
-                ".      (Set: " + amount + ",  Spent: " + transactionsSum + ")");
+                ".   (Set: " + amount + ",  Spent: " + transactionsSum + ")");
         if (wentOver)
             holder.remaining.setTextColor(Color.parseColor("red"));
 
