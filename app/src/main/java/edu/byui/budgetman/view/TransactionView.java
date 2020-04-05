@@ -28,16 +28,13 @@ public class TransactionView extends AppCompatActivity implements AdapterView.On
 
     TextView input;
     TextView input2;
+    String category;
 
     // loads the view
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.active_transaction_view);
-
-    }
-
-    public void getCategories(View view) {
         Spinner categories = (Spinner) findViewById(R.id.spinner2);
 
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.possible_categories, android.R.layout.simple_spinner_item);
@@ -57,7 +54,6 @@ public class TransactionView extends AppCompatActivity implements AdapterView.On
 
     	// This variables are for the method more than the class
     	// keeping them in here makes it more testable and possibly reusable
-        String category;
         String amountT;
 
         // grabs the user entered text and converts them into strings
@@ -74,12 +70,12 @@ public class TransactionView extends AppCompatActivity implements AdapterView.On
         Budget budget = BudgetControl.getCurrentMonthBudget();
 
         // The get category by name, gets the category, or returns null if not found ...
-        Category cate = budget.getCategoryByName("Food");
+        Category cate = budget.getCategoryByName(category);
 
         // If the category doesn't exist create a new one with the transaction amount
         // and add it to the budget
         if (cate == null) {
-            cate = new Category("food", amount, new ArrayList<Transaction>());
+            cate = new Category(category, amount, new ArrayList<Transaction>());
             budget.getCategories().add(cate);
         }
 
@@ -129,8 +125,7 @@ public class TransactionView extends AppCompatActivity implements AdapterView.On
 
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-        String text = parent.getItemAtPosition(position).toString();
-        Toast.makeText(parent.getContext(), text, Toast.LENGTH_SHORT).show();
+        category = parent.getItemAtPosition(position).toString();
     }
 
     @Override
