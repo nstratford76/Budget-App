@@ -54,6 +54,7 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
 
             Intent intent = new Intent(this, GetIncome.class);
             startActivity(intent);
+            return;
         }
 
         drawCategoriesSumary();
