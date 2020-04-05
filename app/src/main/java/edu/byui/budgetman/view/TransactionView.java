@@ -93,7 +93,7 @@ public class TransactionView extends AppCompatActivity implements AdapterView.On
 
       // Go through all transactions and add all of the amounts together
         for (Transaction transaction: transactions) {
-             sum.add(transaction.getAmount());
+            sum = sum.add(transaction.getAmount());
         }
 
         // If the sum is greater than the budgeted amount, tell them that amount
