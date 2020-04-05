@@ -34,7 +34,10 @@ public class CategoryView extends AppCompatActivity {
         setContentView(R.layout.activity_category_view);
     }
 
+    // Gets the new category name from the user and budgeted amount
     public void getCategory(View v) {
+
+        // Converts the inputs into strings
 
         input = (TextView) findViewById(R.id.editText);
         category = input.getText().toString();
@@ -42,19 +45,27 @@ public class CategoryView extends AppCompatActivity {
         input2 = (TextView) findViewById(R.id.editText2);
         amountText = input2.getText().toString();
 
+        // Converts the number string into a BigDecimal
+
         BigDecimal amount = new BigDecimal(amountText);
 
+        // Make a list of categories from the current month budget
         Budget budget = getCurrentMonthBudget();
         ArrayList<Category> categories = budget.getCategories();
 
+        // If category already exists, just change budgeted amount
         if (budget.getCategoryByName(category) != null) {
             Category cat = budget.getCategoryByName(category);
             cat.setBudgetedAmount(amount);
         }
+
+        // If category doesn't exist, create new category with budgeted amount
         else {
             Category cat = new Category(category, amount, new ArrayList<Transaction>());
             categories.add(cat);
         }
+        // Save and move to Main activity
+
         saveCurrentMonthBudget();
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
