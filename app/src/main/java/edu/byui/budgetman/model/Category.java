@@ -52,7 +52,7 @@ public class Category {
     }
 
     public void addTransaction(BigDecimal amount) {
-        Transaction newTransaction = new Transaction(amount);
+        Transaction newTransaction = new Transaction(amount, null);
         transactions.add(newTransaction);
     }
 
