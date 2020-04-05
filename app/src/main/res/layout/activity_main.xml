@@ -62,11 +62,12 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/categoryList"
         android:layout_width="413dp"
-        android:layout_height="91dp"
+        android:layout_height="120dp"
         android:layout_marginStart="2dp"
-        app:layout_constraintBottom_toTopOf="@+id/floatingActionButton"
+        android:layout_marginTop="2dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/incomeInfo"
         tools:listitem="@layout/category_list" />
 
     <TextView
