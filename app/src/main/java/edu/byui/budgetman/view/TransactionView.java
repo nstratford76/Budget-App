@@ -35,25 +35,36 @@ public class TransactionView extends AppCompatActivity implements AdapterView.On
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.active_transaction_view);
-        Spinner categories = (Spinner) findViewById(R.id.spinner2);
-
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.possible_categories, android.R.layout.simple_spinner_item);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        categories.setAdapter(adapter);
-        categories.setOnItemSelectedListener(this);
 
         Budget budget = BudgetControl.getCurrentMonthBudget();
 
-        for (Category myCategory: budget.getCategories()) {
-            adapter.add(myCategory.getName());
+        ArrayList<CharSequence> catNames = new ArrayList<>();
+
+        for (Category myCategory : budget.getCategories()) {
+
+            String currentCatName = myCategory.getName();
+
+            catNames.add(currentCatName);
         }
+
+
+        ArrayAdapter<CharSequence> adapter = new ArrayAdapter<>(this,
+                android.R.layout.simple_spinner_item, catNames);
+
+
+        Spinner categories = (Spinner) findViewById(R.id.spinner2);
+        // ArrayAdapter.createFromResource(this, android.R.layout.simple_spinner_item,catNames);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        categories.setAdapter(adapter);
+
+        categories.setOnItemSelectedListener(this);
     }
 
     public void getTransaction(View view) {
 
 
-    	// This variables are for the method more than the class
-    	// keeping them in here makes it more testable and possibly reusable
+        // This variables are for the method more than the class
+        // keeping them in here makes it more testable and possibly reusable
         String amountT;
 
         // grabs the user entered text and converts them into strings
@@ -79,20 +90,20 @@ public class TransactionView extends AppCompatActivity implements AdapterView.On
             budget.getCategories().add(cate);
         }
 
-		// Then just add the transaction to the category
+        // Then just add the transaction to the category
         cate.getTransactions().add(new Transaction(amount, null));
 
         // save the changes
 
         // Make it so that the user receives a toast if he goes over the category amount
 
-         BigDecimal sum = new BigDecimal(0);
+        BigDecimal sum = new BigDecimal(0);
 
-         // Get transactions for category
+        // Get transactions for category
         List<Transaction> transactions = cate.getTransactions();
 
-      // Go through all transactions and add all of the amounts together
-        for (Transaction transaction: transactions) {
+        // Go through all transactions and add all of the amounts together
+        for (Transaction transaction : transactions) {
             sum = sum.add(transaction.getAmount());
         }
 
@@ -111,8 +122,7 @@ public class TransactionView extends AppCompatActivity implements AdapterView.On
         if (res == 1) {
             Toast toast = Toast.makeText(context, text, duration);
             toast.show();
-        }
-        else {
+        } else {
             Toast toast = Toast.makeText(context, text2, duration);
             toast.show();
         }
