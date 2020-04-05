@@ -24,12 +24,16 @@ public class GetIncome extends AppCompatActivity {
         setContentView(R.layout.activity_get_income);
     }
 
+    // Gets the user's monthly income and passes in the view
     public void getIncome(View v) {
 
+        // Convert input into string and then to BigDecimal
         Budget budget = BudgetControl.getCurrentMonthBudget();
         input = (TextView) findViewById(R.id.editText3);
         incomeText = input.getText().toString();
         BigDecimal income = new BigDecimal(incomeText);
+
+        // Set income to budget and save it, move to main activity
 
         budget.setIncome(income);
         BudgetControl.saveCurrentMonthBudget();

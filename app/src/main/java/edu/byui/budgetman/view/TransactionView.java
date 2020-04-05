@@ -1,20 +1,23 @@
 package edu.byui.budgetman.view;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.List;
 
 import edu.byui.budgetman.R;
+import edu.byui.budgetman.control.BudgetControl;
+import edu.byui.budgetman.model.Budget;
 import edu.byui.budgetman.model.Category;
 import edu.byui.budgetman.model.Transaction;
-import edu.byui.budgetman.model.Budget;
-import edu.byui.budgetman.control.BudgetControl;
 
 public class TransactionView extends AppCompatActivity {
     TextView input;
@@ -56,6 +59,40 @@ public class TransactionView extends AppCompatActivity {
 		// Then just add the transaction to the category
         cate.getTransactions().add(new Transaction(amount, null));
 
+        // Make it so that the user receives a toast if he goes over the category amount
+
+         BigDecimal sum = new BigDecimal(0);
+
+         // Get transactions for category
+        List<Transaction> transactions = cate.getTransactions();
+
+      // Go through all transactions and add all of the amounts together
+        for (Transaction transaction: transactions) {
+             sum.add(transaction.getAmount());
+        }
+
+        // If the sum is greater than the budgeted amount, tell them that amount
+        // is exceeded
+        int res;
+
+        // Set up the two toasts
+        Context context = getApplicationContext();
+        CharSequence text = "Budgeted amount exceeded";
+
+        // Lets user know they are in budget for the category
+        CharSequence text2 = "You are within the budgeted amount";
+        int duration = Toast.LENGTH_LONG;
+        res = sum.compareTo(cate.getBudgetedAmount());
+        if (res == 1) {
+            Toast toast = Toast.makeText(context, text, duration);
+            toast.show();
+        }
+        else {
+            Toast toast = Toast.makeText(context, text2, duration);
+            toast.show();
+        }
+
+        // Save budget
         BudgetControl.saveCurrentMonthBudget();
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);

@@ -23,6 +23,7 @@ public class BudgetAdapter extends RecyclerView.Adapter<BudgetAdapter.ViewHolder
     }
 
 
+    // Gets the view holder and allows it to keep going with more categories added
     @NonNull
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View v = (View) LayoutInflater.from(parent.getContext()).inflate(R.layout.category_list, parent, false);
@@ -33,9 +34,14 @@ public class BudgetAdapter extends RecyclerView.Adapter<BudgetAdapter.ViewHolder
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
 
+        // Get current month budget
         Budget budget = BudgetControl.getCurrentMonthBudget();
 
+        // Allocates the new position for each new category
+
         BigDecimal income = budget.getIncome();
+
+        // Convert BigDecimal to string
         String mIncome = income.toString();
         Category cat = categories.get(position);
 
@@ -63,7 +69,7 @@ public class BudgetAdapter extends RecyclerView.Adapter<BudgetAdapter.ViewHolder
     }
 
 
-
+    // Make a holder for the recycler view, the area where the view is at
     public static class ViewHolder extends RecyclerView.ViewHolder {
 
         public final View view;
