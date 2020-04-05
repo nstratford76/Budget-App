@@ -4,6 +4,7 @@ import java.math.BigDecimal;
 import java.util.List;
 import java.util.Objects;
 
+/** Model class representing the notiono of a category in a budget */
 public class Category {
 
     private int sqlId;
@@ -11,6 +12,10 @@ public class Category {
     private BigDecimal budgetedAmount;
     private List<Transaction> transactions;
 
+    /**
+     * Non default constructor. Only this data is required for the reation of a
+     * Category
+     */
     public Category(String name, BigDecimal budgetedAmount, List<Transaction> transactions) {
         this.name = name;
         this.budgetedAmount = budgetedAmount;
@@ -21,7 +26,8 @@ public class Category {
         return sqlId;
     }
 
-    public void setSqlId(int sqlId){
+    /** WARNING to be used only by the Model API */
+    public void setSqlId(int sqlId) {
         this.sqlId = sqlId;
     }
 
@@ -50,6 +56,11 @@ public class Category {
         transactions.add(newTransaction);
     }
 
+    /**
+     * Helper method to get the sum of all the transactions whether those make for a
+     * positive or negative result. Negative result means there is money extra in
+     * the category
+     */
     public BigDecimal getTransactionsSum() {
 
         BigDecimal categorySum = new BigDecimal(0);
@@ -63,10 +74,13 @@ public class Category {
         return categorySum;
     }
 
+    /** Helper class to compare categories */
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o)
+            return true;
+        if (o == null || getClass() != o.getClass())
+            return false;
         Category category = (Category) o;
         return name.equals(category.name);
     }

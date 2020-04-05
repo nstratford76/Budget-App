@@ -29,6 +29,7 @@ import edu.byui.budgetman.model.Budget;
 import edu.byui.budgetman.model.BudgetAdapter;
 import edu.byui.budgetman.model.Category;
 
+/** Main class and starting point of our application */
 public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuItemClickListener {
 
     private PieChart pieChart;
@@ -48,23 +49,31 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
 
         /*******************************/
 
-        if (BudgetControl.getCurrentMonthBudget().getIncome().compareTo(new BigDecimal("0")) == 0) {
+        // Ask the user to enter an income ammount if it equal or less than 0
+        if (BudgetControl.getCurrentMonthBudget().getIncome().compareTo(new BigDecimal("0")) <= 0) {
 
             Intent intent = new Intent(this, GetIncome.class);
             startActivity(intent);
             return;
         }
 
+        // Draw the categories summary
         drawCategoriesSumary();
 
+        // drawing the graph
         drawPieChart();
 
     }
 
+    /**
+     * Method in charge of displaying the summary data of each category through a
+     * recycler
+     */
     private void drawCategoriesSumary() {
 
         Budget budget = BudgetControl.getCurrentMonthBudget();
 
+        // Set those categories and linked them to the Recycler
         ArrayList<Category> cats = budget.getCategories();
         categories = (RecyclerView) findViewById(R.id.categoryList);
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(this);
@@ -73,26 +82,32 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
         adapter = new BudgetAdapter(cats);
         categories.setAdapter(adapter);
 
+        // Show the income on the screen
         TextView view = findViewById(R.id.textView6);
         BigDecimal income = budget.getIncome();
         String incomeText = income.toString();
 
         view.setText(incomeText);
 
-        BudgetControl.printCurrentMonthBudget();
+        // BudgetControl.printCurrentMonthBudget();
     }
 
+    /** Draw a pie chart of the current month budget */
     private void drawPieChart() {
 
         pieChart = (PieChart) findViewById(R.id.pieChart);
 
+        // Call control class to get the data
         List<PieEntry> pieEntries = ChartDrawingControl.getChartDataSet();
 
         PieDataSet pieDataSet = new PieDataSet(pieEntries, "");
 
+        // Call control class to set the colors based on required size and if there is
+        // income left
         pieDataSet.setColors(ChartDrawingControl.getRandomColorsArray(pieEntries.size(),
                 pieEntries.get(pieEntries.size() - 1).getLabel().equals("INCOME LEFT")));
 
+        // Set data and draw it
         pieChart.setData(new PieData(pieDataSet));
         pieChart.animateXY(1000, 1000);
         Description description = new Description();
@@ -109,8 +124,9 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
         popup.show();
     }
 
-    //This has different options for the drop down menu, links to different activities
-    //in app
+    // This has different options for the drop down menu, links to different
+    // activities
+    // in app
     @Override
     public boolean onMenuItemClick(MenuItem item) {
         switch (item.getItemId()) {

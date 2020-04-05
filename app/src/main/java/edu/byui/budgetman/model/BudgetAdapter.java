@@ -15,6 +15,10 @@ import java.util.ArrayList;
 import edu.byui.budgetman.R;
 import edu.byui.budgetman.control.BudgetControl;
 
+/**
+ * Class to display the list of categories with their corresponding transaction
+ * information summary
+ */
 public class BudgetAdapter extends RecyclerView.Adapter<BudgetAdapter.ViewHolder> {
 
     private ArrayList<Category> categories;
@@ -22,7 +26,6 @@ public class BudgetAdapter extends RecyclerView.Adapter<BudgetAdapter.ViewHolder
     public BudgetAdapter(ArrayList<Category> categories) {
         this.categories = categories;
     }
-
 
     // Gets the view holder and allows it to keep going with more categories added
     @NonNull
@@ -50,16 +53,15 @@ public class BudgetAdapter extends RecyclerView.Adapter<BudgetAdapter.ViewHolder
 
         String number = amount.toString();
 
-        //holder.income.setText(mIncome);
+        // holder.income.setText(mIncome);
         holder.category.setText(cat.getName() + ".");
         BigDecimal transactionsSum = cat.getTransactionsSum();
-
 
         // Showing the summary for each category
         BigDecimal difference = amount.subtract(transactionsSum);
         boolean wentOver = difference.compareTo(new BigDecimal("0")) < 0;
-        holder.remaining.setText(difference.abs().toString() + (wentOver ? " Over" : " left") +
-                ".   (Set: " + amount + ",  Spent: " + transactionsSum + ")");
+        holder.remaining.setText(difference.abs().toString() + (wentOver ? " Over" : " left") + ".   (Set: " + amount
+                + ",  Spent: " + transactionsSum + ")");
         if (wentOver)
             holder.remaining.setTextColor(Color.parseColor("red"));
 
@@ -72,7 +74,6 @@ public class BudgetAdapter extends RecyclerView.Adapter<BudgetAdapter.ViewHolder
         else
             return 0;
     }
-
 
     // Make a holder for the recycler view, the area where the view is at
     public static class ViewHolder extends RecyclerView.ViewHolder {
@@ -90,6 +91,5 @@ public class BudgetAdapter extends RecyclerView.Adapter<BudgetAdapter.ViewHolder
             income = view.findViewById(R.id.info);
         }
     }
-
 
 }

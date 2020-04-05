@@ -8,7 +8,10 @@ import edu.byui.budgetman.model.Budget;
 import edu.byui.budgetman.model.Category;
 import edu.byui.budgetman.model.Transaction;
 
+/** Class to help with debugging and testing */
 public class MockingControl {
+
+    /** Filling the current month budget with some mocking data */
     public static void fillBudgetWithMockData() {
 
         Budget budget = BudgetControl.getCurrentMonthBudget();
@@ -22,17 +25,17 @@ public class MockingControl {
         // Getting hold of the categories reference
         ArrayList<Category> categories = budget.getCategories();
 
-
         // Clearing Budget Transactional Data if that exists
         categories.clear();
 
+        // Adding categories
         categories.add(new Category("Food", new BigDecimal("2000"), new ArrayList<Transaction>()));
 
         categories.add(new Category("Transportation", new BigDecimal("500"), new ArrayList<Transaction>()));
 
         categories.add(new Category("Movies", new BigDecimal("700"), new ArrayList<Transaction>()));
 
-
+        // Filling transactions for categories
         Category foodCategory = budget.getCategoryByName("Food");
         if (foodCategory != null) {
             List<Transaction> foodTransactions = foodCategory.getTransactions();
@@ -47,7 +50,6 @@ public class MockingControl {
 
         }
 
-
         Category transportationCategory = budget.getCategoryByName("Transportation");
         if (transportationCategory != null) {
             List<Transaction> transportTransactions = transportationCategory.getTransactions();
@@ -61,7 +63,6 @@ public class MockingControl {
             transportTransactions.add(new Transaction(new BigDecimal("100.78"), "Broken WindShield Replacement"));
         }
 
-
         Category moviesCategory = budget.getCategoryByName("Movies");
         if (moviesCategory != null) {
             List<Transaction> moviesTransactions = moviesCategory.getTransactions();
@@ -69,6 +70,7 @@ public class MockingControl {
             moviesTransactions.add(new Transaction(new BigDecimal("7.75"), "Disney+ monthly service"));
         }
 
+        // Just print it to console
         BudgetControl.printCurrentMonthBudget();
 
     }
