@@ -34,7 +34,7 @@ public class TransactionView extends AppCompatActivity implements AdapterView.On
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.active_transaction_view);
+        setContentView(R.layout.activity_transaction_view);
 
         Budget budget = BudgetControl.getCurrentMonthBudget();
 
