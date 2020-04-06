@@ -40,27 +40,37 @@ public class TransactionView extends AppCompatActivity implements AdapterView.On
         ArrayList<CharSequence> catNames = new ArrayList<>();
         boolean addOther = true;
 
+        // goes through all of the categories we currently have and adds them to an array
+
         for (Category myCategory : budget.getCategories()) {
 
             String currentCatName = myCategory.getName();
             catNames.add(currentCatName);
+
+            // if we already have an other category set the bool to false
 
             if (currentCatName == "Other" || currentCatName == "other") {
                 addOther = false;
             }
         }
 
+        // if we do not already have an other category add one
+
         if (addOther)
             catNames.add("Other");
+
+        // an adapter for the drop down menu
 
         ArrayAdapter<CharSequence> adapter = new ArrayAdapter<>(this,
                 android.R.layout.simple_spinner_item, catNames);
 
+        // creates the drop down menu with the adapter
 
         Spinner categories = (Spinner) findViewById(R.id.spinner2);
-        // ArrayAdapter.createFromResource(this, android.R.layout.simple_spinner_item,catNames);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         categories.setAdapter(adapter);
+
+        // calls the listener
 
         categories.setOnItemSelectedListener(this);
     }
@@ -139,10 +149,14 @@ public class TransactionView extends AppCompatActivity implements AdapterView.On
         startActivity(intent);
     }
 
+    // drop down menu listener grabs the one the user selects
+
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
         category = parent.getItemAtPosition(position).toString();
     }
+
+    // does nothing if the user selects nothing
 
     @Override
     public void onNothingSelected(AdapterView<?> parent) {
