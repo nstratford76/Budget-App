@@ -37,16 +37,21 @@ public class TransactionView extends AppCompatActivity implements AdapterView.On
         setContentView(R.layout.activity_transaction_view);
 
         Budget budget = BudgetControl.getCurrentMonthBudget();
-
         ArrayList<CharSequence> catNames = new ArrayList<>();
+        boolean addOther = true;
 
         for (Category myCategory : budget.getCategories()) {
 
             String currentCatName = myCategory.getName();
-
             catNames.add(currentCatName);
+
+            if (currentCatName == "Other" || currentCatName == "other") {
+                addOther = false;
+            }
         }
 
+        if (addOther)
+            catNames.add("Other");
 
         ArrayAdapter<CharSequence> adapter = new ArrayAdapter<>(this,
                 android.R.layout.simple_spinner_item, catNames);
@@ -86,6 +91,7 @@ public class TransactionView extends AppCompatActivity implements AdapterView.On
         // If the category doesn't exist create a new one with the transaction amount
         // and add it to the budget
         if (cate == null) {
+
             cate = new Category(category, amount, new ArrayList<Transaction>());
             budget.getCategories().add(cate);
         }
